@@ -4,12 +4,14 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.firstcomposeproject.ui.theme.FirstComposeProjectTheme
 
@@ -24,10 +26,6 @@ class MainActivity : ComponentActivity() {
                     age = 10,
                     modifier = Modifier.padding(innerPadding)
                 )
-                /*Text(
-                    text = "Hello Android",
-                    modifier = Modifier.padding(innerPadding)
-                )*/
             }
         }
     }
@@ -39,10 +37,14 @@ fun Greeting(
     age: Int,
     modifier: Modifier = Modifier
 ) {
-    Text(
-        text = "Hello $name! Тебе $age лет.",
-        modifier = modifier
-    )
+    Column(modifier = modifier) {
+        repeat(10) {
+            Text(
+                text = "Hello $name! Тебе $age лет.",
+                color = Color.Blue
+            )
+        }
+    }
 }
 
 @Preview(showBackground = true)
@@ -50,7 +52,8 @@ fun Greeting(
 fun GreetingPreview() {
     FirstComposeProjectTheme {
         Greeting(
-            name ="Android",
-            age = 7)
+            name = "Android",
+            age = 7
+        )
     }
 }
