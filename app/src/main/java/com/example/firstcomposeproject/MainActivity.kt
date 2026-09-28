@@ -28,11 +28,13 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                TablicaUmnojenia(modifier = Modifier.padding(innerPadding))
+                //TablicaUmnojenia(modifier = Modifier.padding(innerPadding))
+                ShapkaKartochki(modifier = Modifier.padding(innerPadding))
             }
         }
     }
 }
+
 
 @Composable
 fun TablicaUmnojenia(modifier: Modifier) {
