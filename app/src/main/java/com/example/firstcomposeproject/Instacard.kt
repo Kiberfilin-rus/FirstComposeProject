@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -40,6 +41,24 @@ fun Instacard(modifier: Modifier) {
         border = BorderStroke(1.dp, MaterialTheme.colorScheme.onBackground)
     ) {
         ShapkaKartochki()
+        Column(modifier = Modifier.padding(8.dp)) {
+            Text(
+                text = "Nelzyagram",
+                fontFamily = FontFamily.Cursive,
+                fontSize = 32.sp
+            )
+            Text(
+                text = "#Mne_tu",
+                fontSize = 14.sp
+            )
+            Text(
+                text = "www.leningrad.spb.ru",
+                fontSize = 14.sp
+            )
+            Button(onClick = {}) {
+                Text(text = "Кнопка")
+            }
+        }
     }
 }
 
