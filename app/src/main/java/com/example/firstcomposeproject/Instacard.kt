@@ -2,6 +2,7 @@ package com.example.firstcomposeproject
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -53,8 +54,10 @@ private fun ShapkaKartochki() {
     ) {
         Image(
             modifier = Modifier
+                .size(60.dp)
                 .clip(shape = CircleShape)
-                .size(50.dp),
+                .background(color = MaterialTheme.colorScheme.tertiaryContainer)
+                .padding(8.dp),
             painter = painterResource(id = R.drawable.sharp_3d_rotation_24),
             contentDescription = "Иконка",
             colorFilter = ColorFilter.tint(color = MaterialTheme.colorScheme.onBackground)
