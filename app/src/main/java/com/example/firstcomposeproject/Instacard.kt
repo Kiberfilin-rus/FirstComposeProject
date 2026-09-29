@@ -13,20 +13,24 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.AndroidUiModes.UI_MODE_NIGHT_NO
+import androidx.compose.ui.tooling.preview.AndroidUiModes.UI_MODE_NIGHT_YES
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.firstcomposeproject.ui.theme.FirstComposeProjectTheme
 
 @Composable
 fun Instacard(modifier: Modifier) {
     Card(
-        modifier = modifier,
+        modifier = modifier.padding(8.dp),
         shape = RoundedCornerShape(topStart = 4.dp, topEnd = 4.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.White),
-        border = BorderStroke(1.dp, Color.Black)
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.background),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.onBackground)
     ) {
         ShapkaKartochki()
     }
@@ -72,14 +76,20 @@ private fun StatsColumn() {
     }
 }
 
-@Preview(showBackground = true)
+@Preview(name = "Instacard Light Mode", showBackground = true, uiMode = UI_MODE_NIGHT_NO)
+@Preview(name = "Instacard Dark Mode", showBackground = true, uiMode = UI_MODE_NIGHT_YES)
 @Composable
 fun ShowCard() {
-    Instacard(modifier = Modifier)
+    FirstComposeProjectTheme {
+        Instacard(modifier = Modifier)
+    }
 }
 
-@Preview(showBackground = true)
+@Preview(name = "Шапка Light Mode", showBackground = true, uiMode = UI_MODE_NIGHT_NO)
+@Preview(name = "Шапка Dark Mode", showBackground = true, uiMode = UI_MODE_NIGHT_YES)
 @Composable
 fun ShowShapkaKartochki() {
-    ShapkaKartochki()
+    FirstComposeProjectTheme {
+        ShapkaKartochki()
+    }
 }
