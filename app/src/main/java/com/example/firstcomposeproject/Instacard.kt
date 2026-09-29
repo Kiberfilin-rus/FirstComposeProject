@@ -14,14 +14,18 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.AndroidUiModes.UI_MODE_NIGHT_NO
 import androidx.compose.ui.tooling.preview.AndroidUiModes.UI_MODE_NIGHT_YES
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.firstcomposeproject.ui.theme.FirstComposeProjectTheme
 
 @Composable
@@ -50,28 +54,27 @@ private fun ShapkaKartochki() {
                 .background(color = Color.Blue)
                 .size(50.dp)
         )
-        StatsColumn()
-        StatsColumn()
-        StatsColumn()
+        StatsColumn(title = "Posts", value = "6,950")
+        StatsColumn(title = "Followers", value = "436M")
+        StatsColumn(title = "Following", value = "76")
     }
 }
 
 @Composable
-private fun StatsColumn() {
+private fun StatsColumn(title: String, value: String) {
     Column(
         modifier = Modifier.height(80.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceEvenly
     ) {
-        Box(
-            modifier = Modifier
-                .background(color = Color.Red)
-                .size(25.dp)
+        Text(
+            text = value,
+            fontSize = 24.sp,
+            fontFamily = FontFamily.Cursive
         )
-        Box(
-            modifier = Modifier
-                .background(color = Color.Green)
-                .size(25.dp)
+        Text(
+            text = title,
+            fontWeight = FontWeight.Bold
         )
     }
 }
