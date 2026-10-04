@@ -15,16 +15,21 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.ViewModelProvider
 import com.example.firstcomposeproject.ui.theme.FirstComposeProjectTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         enableEdgeToEdge()
         setContent {
             FirstComposeProjectTheme() {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Instacard(modifier = Modifier.padding(innerPadding))
+                    Instacard(
+                        modifier = Modifier.padding(innerPadding),
+                        viewModel = viewModel
+                    )
                 }
             }
         }

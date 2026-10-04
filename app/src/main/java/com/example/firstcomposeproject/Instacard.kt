@@ -13,11 +13,14 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -33,7 +36,11 @@ import androidx.compose.ui.unit.sp
 import com.example.firstcomposeproject.ui.theme.FirstComposeProjectTheme
 
 @Composable
-fun Instacard(modifier: Modifier) {
+fun Instacard(
+    modifier: Modifier,
+    viewModel: MainViewModel
+) {
+    val isFollowed: State<Boolean> = viewModel.isFollowing.observeAsState(false)
     Card(
         modifier = modifier.padding(8.dp),
         shape = RoundedCornerShape(topStart = 4.dp, topEnd = 4.dp),
@@ -55,9 +62,34 @@ fun Instacard(modifier: Modifier) {
                 text = "www.leningrad.spb.ru",
                 fontSize = 14.sp
             )
-            Button(onClick = {}) {
-                Text(text = "Кнопка")
+            FollowButton(isFollowed = isFollowed.value) {
+                viewModel.changeFollowingStatus()
             }
+        }
+    }
+}
+
+@Composable
+private fun FollowButton(
+    isFollowed: Boolean,
+    clickListener: () -> Unit
+) {
+    Button(
+        onClick = { clickListener() },
+        colors = ButtonDefaults.buttonColors(
+            containerColor = if (isFollowed) {
+                MaterialTheme.colorScheme.primary.copy(
+                    alpha = 0.5f
+                )
+            } else {
+                MaterialTheme.colorScheme.primary
+            }
+        )
+    ) {
+        if (isFollowed) {
+            Text(text = "Unfollow")
+        } else {
+            Text(text = "Follow")
         }
     }
 }
@@ -111,7 +143,7 @@ private fun StatsColumn(title: String, value: String) {
 @Composable
 fun ShowCard() {
     FirstComposeProjectTheme {
-        Instacard(modifier = Modifier)
+        Instacard(modifier = Modifier, viewModel = MainViewModel())
     }
 }
 
