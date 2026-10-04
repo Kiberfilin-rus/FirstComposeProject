@@ -62,7 +62,7 @@ fun Instacard(
                 text = "www.leningrad.spb.ru",
                 fontSize = 14.sp
             )
-            FollowButton(isFollowed = isFollowed.value) {
+            FollowButton(isFollowed = isFollowed) {
                 viewModel.changeFollowingStatus()
             }
         }
@@ -71,13 +71,13 @@ fun Instacard(
 
 @Composable
 private fun FollowButton(
-    isFollowed: Boolean,
+    isFollowed: State<Boolean>,
     clickListener: () -> Unit
 ) {
     Button(
         onClick = { clickListener() },
         colors = ButtonDefaults.buttonColors(
-            containerColor = if (isFollowed) {
+            containerColor = if (isFollowed.value) {
                 MaterialTheme.colorScheme.primary.copy(
                     alpha = 0.5f
                 )
@@ -86,7 +86,7 @@ private fun FollowButton(
             }
         )
     ) {
-        if (isFollowed) {
+        if (isFollowed.value) {
             Text(text = "Unfollow")
         } else {
             Text(text = "Follow")
