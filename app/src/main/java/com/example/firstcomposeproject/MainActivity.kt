@@ -7,8 +7,11 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -24,12 +27,15 @@ class MainActivity : ComponentActivity() {
         val viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         enableEdgeToEdge()
         setContent {
-            FirstComposeProjectTheme() {
+            FirstComposeProjectTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Instacard(
-                        modifier = Modifier.padding(innerPadding),
-                        viewModel = viewModel
-                    )
+                    LazyColumn(modifier = Modifier.padding(innerPadding)) {
+                        item { Text(text = "ZAGOLOVOK") }
+                        items(10) {
+                            Instacard(viewModel = viewModel)
+                        }
+                        item { Icon(painterResource(R.drawable.sharp_3d_rotation_24), contentDescription = "") }
+                    }
                 }
             }
         }

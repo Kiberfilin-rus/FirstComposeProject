@@ -37,7 +37,7 @@ import com.example.firstcomposeproject.ui.theme.FirstComposeProjectTheme
 
 @Composable
 fun Instacard(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     viewModel: MainViewModel
 ) {
     val isFollowed: State<Boolean> = viewModel.isFollowing.observeAsState(false)
