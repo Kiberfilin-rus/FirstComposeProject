@@ -32,4 +32,10 @@ class MainViewModel : ViewModel() {
         }
         _models.value = modifiedList
     }
+
+    fun delete(instagramModel: InstagramModel) {
+        val modifiedList = _models.value?.toMutableList() ?: mutableListOf()
+        modifiedList.remove(instagramModel)
+        _models.value = modifiedList
+    }
 }
