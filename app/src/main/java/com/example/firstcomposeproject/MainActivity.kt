@@ -8,11 +8,11 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
@@ -29,12 +29,13 @@ class MainActivity : ComponentActivity() {
         setContent {
             FirstComposeProjectTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                    val models = viewModel.models.observeAsState(listOf())
                     LazyColumn(modifier = Modifier.padding(innerPadding)) {
-                        item { Text(text = "ZAGOLOVOK") }
-                        items(10) {
-                            Instacard(viewModel = viewModel)
+                        items(items = models.value) { instagramModel: InstagramModel ->
+                            Instacard(model = instagramModel, onFollowedButtonClickListener = {
+                                viewModel.changeFollowingStatus(it)
+                            })
                         }
-                        item { Icon(painterResource(R.drawable.sharp_3d_rotation_24), contentDescription = "") }
                     }
                 }
             }

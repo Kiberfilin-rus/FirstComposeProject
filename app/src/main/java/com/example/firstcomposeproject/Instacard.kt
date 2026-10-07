@@ -19,8 +19,6 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -38,9 +36,9 @@ import com.example.firstcomposeproject.ui.theme.FirstComposeProjectTheme
 @Composable
 fun Instacard(
     modifier: Modifier = Modifier,
-    viewModel: MainViewModel
+    model: InstagramModel,
+    onFollowedButtonClickListener: (InstagramModel) -> Unit
 ) {
-    val isFollowed: State<Boolean> = viewModel.isFollowing.observeAsState(false)
     Card(
         modifier = modifier.padding(8.dp),
         shape = RoundedCornerShape(topStart = 4.dp, topEnd = 4.dp),
@@ -50,20 +48,20 @@ fun Instacard(
         ShapkaKartochki()
         Column(modifier = Modifier.padding(8.dp)) {
             Text(
-                text = "Nelzyagram",
+                text = "Nelzyagram ${model.id}",
                 fontFamily = FontFamily.Cursive,
                 fontSize = 32.sp
             )
             Text(
-                text = "#Mne_tu",
+                text = "#${model.title}",
                 fontSize = 14.sp
             )
             Text(
                 text = "www.leningrad.spb.ru",
                 fontSize = 14.sp
             )
-            FollowButton(isFollowed = isFollowed) {
-                viewModel.changeFollowingStatus()
+            FollowButton(isFollowed = model.isFollowed) {
+                onFollowedButtonClickListener(model)
             }
         }
     }
@@ -71,13 +69,13 @@ fun Instacard(
 
 @Composable
 private fun FollowButton(
-    isFollowed: State<Boolean>,
+    isFollowed: Boolean,
     clickListener: () -> Unit
 ) {
     Button(
         onClick = { clickListener() },
         colors = ButtonDefaults.buttonColors(
-            containerColor = if (isFollowed.value) {
+            containerColor = if (isFollowed) {
                 MaterialTheme.colorScheme.primary.copy(
                     alpha = 0.5f
                 )
@@ -86,7 +84,7 @@ private fun FollowButton(
             }
         )
     ) {
-        if (isFollowed.value) {
+        if (isFollowed) {
             Text(text = "Unfollow")
         } else {
             Text(text = "Follow")
@@ -143,7 +141,10 @@ private fun StatsColumn(title: String, value: String) {
 @Composable
 fun ShowCard() {
     FirstComposeProjectTheme {
-        Instacard(modifier = Modifier, viewModel = MainViewModel())
+        Instacard(
+            modifier = Modifier,
+            model = InstagramModel(id = 0, title = "Title", isFollowed = false),
+            onFollowedButtonClickListener = {})
     }
 }
 
